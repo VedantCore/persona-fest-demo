@@ -362,3 +362,114 @@ footer { animation-delay: 0.7s; }
   background: #fff3;
   box-shadow: 0 2px 8px #ff7e5f22;
 }
+
+/* Modern modal overlay */
+#loginModal, #registerModal {
+    display: flex;
+    position: fixed;
+    z-index: 2000;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: rgba(30, 34, 45, 0.55);
+    backdrop-filter: blur(2px);
+    transition: background 0.3s;
+}
+
+/* Modern modal form */
+#loginForm, #registerForm {
+    background: #fff;
+    padding: 2.5rem 2rem 2rem 2rem;
+    border-radius: 18px;
+    min-width: 320px;
+    max-width: 95vw;
+    box-shadow: 0 8px 32px 0 rgba(26, 115, 232, 0.13);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    position: relative;
+    animation: modalPopIn 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+#loginForm h2, #registerForm h2 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #1a73e8;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#loginForm .modal-icon, #registerForm .modal-icon {
+    font-size: 2.1rem;
+    color: #fbbc05;
+    margin-right: 0.3rem;
+}
+
+#loginForm input, #registerForm input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    border: 1.5px solid #e0e7ef;
+    background: #f7fafc;
+    font-size: 1.05rem;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+#loginForm input:focus, #registerForm input:focus {
+    border: 1.5px solid #1a73e8;
+    outline: none;
+    box-shadow: 0 2px 8px 0 rgba(26,115,232,0.08);
+}
+
+#loginForm button, #registerForm button {
+    width: 100%;
+    padding: 0.85rem 0;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #232946 0%, #1a73e8 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.08rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.2rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+#loginForm button:hover, #registerForm button:hover {
+    background: #1a73e8;
+    color: #fff;
+}
+
+#loginMsg, #registerMsg {
+    color: #e53935;
+    font-size: 1rem;
+    min-height: 1.2em;
+    text-align: center;
+    margin-top: 0.2rem;
+}
+
+#loginForm .modal-switch, #registerForm .modal-switch {
+    margin-top: 0.5rem;
+    font-size: 0.97em;
+    color: #6b7280;
+    text-align: center;
+}
+
+#loginForm .modal-switch a, #registerForm .modal-switch a {
+    color: #1a73e8;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 0.2em;
+}
+
+@media (max-width: 500px) {
+    #loginForm, #registerForm {
+        min-width: 90vw;
+        padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+    }
+}
