@@ -15,7 +15,14 @@
             </a>
             <ul class="navbar__menu">
                 <li class="navbar__item"><a href="index.html" class="navbar__links">Home</a></li>
-                <li class="navbar__item"><a href="tech.html" class="navbar__links">Tech Events</a></li>
+                <li class="navbar__item navbar__dropdown">
+                    <a href="tech.html" class="navbar__links" id="eventsDropdownLink">Events &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="tech.html#hackathon" class="navbar__links">Hackathon</a></li>
+                        <li><a href="tech.html#design" class="navbar__links">Design Contest</a></li>
+                        <!-- Add more events as needed -->
+                    </ul>
+                </li>
                 <li class="navbar__item"><a href="#games" class="navbar__links">Games</a></li>
                 <li class="navbar__btn"><a href="#signup" class="button" id="signupNavBtn">REGISTER</a></li>
                 <li class="navbar__btn"><button id="logoutBtn" class="button" style="display:none;">Logout</button></li>
@@ -560,5 +567,34 @@ registerForm.onsubmit = function(e) {
         }
     });
     </script>
+    <!-- Make Events tab clickable and dropdown on hover -->
+    <script>
+// Make Events tab clickable and dropdown on hover
+document.addEventListener('DOMContentLoaded', function () {
+    var eventsDropdownLink = document.getElementById('eventsDropdownLink');
+    if (eventsDropdownLink) {
+        eventsDropdownLink.addEventListener('click', function(e) {
+            window.location.href = 'tech.html';
+        });
+    }
+});
+    </script>
+    <style>
+.navbar__dropdown .dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    pointer-events: none;
+}
+
+.navbar__dropdown.open .dropdown-menu,
+.navbar__dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+    </style>
 </body>
 </html>

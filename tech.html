@@ -9,10 +9,20 @@
 <body>
     <nav class="navbar">
         <div class="navbar__container">
-            <a href="index.html" id="navbar__logo">MIT Art, Design & Technology University</a>
+            <a href="index.html" id="navbar__logo">
+                <img src="images/MIT_ADT_Logo.png" alt="MIT-ADT Logo" style="height:2.1rem;vertical-align:middle;margin-right:0.7rem;display:inline-block;">
+                MIT Art, Design & Technology University
+            </a>
             <ul class="navbar__menu">
                 <li class="navbar__item"><a href="index.html" class="navbar__links">Home</a></li>
-                <li class="navbar__item"><a href="tech.html" class="navbar__links">Tech Events</a></li>
+                <li class="navbar__item navbar__dropdown">
+                    <a href="tech.html" class="navbar__links" id="eventsDropdownLink">Events &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="tech.html#hackathon" class="navbar__links">Hackathon</a></li>
+                        <li><a href="tech.html#robotics" class="navbar__links">Robotics Challenge</a></li>
+                        <!-- Add more events as needed -->
+                    </ul>
+                </li>
                 <li class="navbar__item"><a href="index.html#about" class="navbar__links">About</a></li>
                 <li class="navbar__btn"><a href="index.html#signup" class="button">Sign Up</a></li>
             </ul>

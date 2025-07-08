@@ -255,26 +255,110 @@ footer {
     font-size: 1rem;
 }
 
-@media (max-width: 900px) {
-    .navbar__container, .about, .events, .signup, .tech-events, .profile, .dev-console {
-        padding: 1rem;
-    }
-    .event-list {
-        flex-direction: column;
-    }
-    .about, .events, .signup, .tech-events, .profile, .dev-console {
-        margin: 1.2rem;
-    }
-    .hero {
-        padding: 2.5rem 1rem 2rem 1rem;
-    }
+/* Fade/slide-in animation for sections */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero, .events, .about, .signup, .profile, .dev-console, footer {
+  opacity: 0;
+  animation: fadeSlideIn 0.8s cubic-bezier(.4,0,.2,1) forwards;
+}
+.hero { animation-delay: 0.1s; }
+.events { animation-delay: 0.2s; }
+.about { animation-delay: 0.3s; }
+.signup { animation-delay: 0.4s; }
+.profile { animation-delay: 0.5s; }
+.dev-console { animation-delay: 0.6s; }
+footer { animation-delay: 0.7s; }
+
+/* Animate event cards individually */
+.event-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideIn 0.7s cubic-bezier(.4,0,.2,1) forwards;
+}
+.event-card:nth-child(1) { animation-delay: 0.25s; }
+.event-card:nth-child(2) { animation-delay: 0.35s; }
+.event-card:nth-child(3) { animation-delay: 0.45s; }
+
+/* Button hover effect */
+.button, .hero-btn {
+  transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+.button:hover, .hero-btn:hover {
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  box-shadow: 0 4px 16px #ff7e5f33;
+  transform: translateY(-2px) scale(1.04);
 }
 
-::-webkit-scrollbar {
-    width: 8px;
-    background: #e0e7ef;
+/* Modal pop-in animation */
+#loginModal[style*="display:flex"], #registerModal[style*="display:flex"] {
+  animation: modalPopIn 0.4s cubic-bezier(.4,0,.2,1);
 }
-::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Dropdown menu animation (already present, but smoother) */
+.navbar__dropdown {
+    position: relative;
+}
+
+.navbar__dropdown .dropdown-menu {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    min-width: 180px;
+    margin-top: 0.5rem; /* space below navbar */
+    background: #232946;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px 0 rgba(26,115,232,0.10);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.32s cubic-bezier(.4,0,.2,1), transform 0.32s cubic-bezier(.4,0,.2,1), visibility 0.32s;
+    pointer-events: none;
+    padding: 0.5rem 0;
+}
+
+.navbar__dropdown.open .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Table row fade-in for signups/dev console */
+#signupsTable tbody tr {
+  opacity: 0;
+  animation: fadeSlideIn 0.5s cubic-bezier(.4,0,.2,1) forwards;
+}
+#signupsTable tbody tr:nth-child(1) { animation-delay: 0.1s; }
+#signupsTable tbody tr:nth-child(2) { animation-delay: 0.15s; }
+#signupsTable tbody tr:nth-child(3) { animation-delay: 0.2s; }
+/* ...add more as needed */
+
+/* Smooth hover for navbar links */
+.navbar__links, .navbar__btn .button {
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.navbar__links:hover, .navbar__btn .button:hover {
+  color: #ff7e5f;
+  background: #fff3;
+  box-shadow: 0 2px 8px #ff7e5f22;
 }
