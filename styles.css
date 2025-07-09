@@ -507,3 +507,56 @@ body > *:not(.modern-bg) {
     box-shadow: 0 8px 32px 0 rgba(26, 115, 232, 0.13) !important;
     background: #fff !important;
 }
+
+/* Modern Animated Button Styles */
+.button, button {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.7em 2.2em;
+  border: none;
+  border-radius: 2em;
+  background: linear-gradient(90deg, #284bd3 0%, #ae8d1f 100%);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 24px 0 rgba(80, 80, 180, 0.10);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s, box-shadow 0.3s, transform 0.15s;
+}
+
+.button::before, button::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 0;
+}
+
+.button:hover, button:hover {
+  background: linear-gradient(90deg, #5b6ff1 0%, #fcca13 100%);
+  box-shadow: 0 8px 32px 0 rgba(80, 80, 180, 0.18);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.button:active, button:active {
+  transform: scale(0.98);
+}
+
+.button:hover::before, button:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.button, button {
+  z-index: 1;
+}
+.button > *, button > * {
+  position: relative;
+  z-index: 2;
+}
