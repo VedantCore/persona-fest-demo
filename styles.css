@@ -276,7 +276,7 @@ footer {
 }
 .hero, .events, .about, .signup, .profile, .dev-console, footer {
   opacity: 0;
-  animation: fadeSlideIn 0.8s cubic-bezier(.4,0,.2,1) forwards;
+  animation: fadeSlideIn 0.8s cubic-bezier(.4,0,.2,1) forwards
 }
 .hero { animation-delay: 0.1s; }
 .events { animation-delay: 0.2s; }
