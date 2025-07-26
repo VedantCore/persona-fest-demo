@@ -581,14 +581,26 @@ document.addEventListener('DOMContentLoaded', function () {
 });
     </script>
     <style>
+/* Navbar Dropdown Fix */
+.navbar__dropdown {
+    position: relative;
+    z-index: 1020;
+}
 .navbar__dropdown .dropdown-menu {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    min-width: 180px;
+    background: rgba(255,255,255,0.98);
+    box-shadow: 0 8px 32px 0 rgba(80,80,180,0.18);
+    border-radius: 0 0 1em 1em;
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
     pointer-events: none;
+    z-index: 1050;
 }
-
 .navbar__dropdown.open .dropdown-menu,
 .navbar__dropdown:hover .dropdown-menu {
     opacity: 1;
@@ -596,6 +608,55 @@ document.addEventListener('DOMContentLoaded', function () {
     transform: translateY(0);
     pointer-events: auto;
 }
+@media (max-width: 900px) {
+    .navbar__dropdown .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border-radius: 0;
+        min-width: unset;
+    }
+}
     </style>
+<script>
+// Dropdown open/close logic for desktop and mobile
+document.addEventListener('DOMContentLoaded', function () {
+    var dropdown = document.querySelector('.navbar__dropdown');
+    var dropdownMenu = dropdown.querySelector('.dropdown-menu');
+    var eventsDropdownLink = document.getElementById('eventsDropdownLink');
+    var hideTimeout;
+
+    // Open on hover (desktop)
+    dropdown.addEventListener('mouseenter', function () {
+        clearTimeout(hideTimeout);
+        dropdown.classList.add('open');
+    });
+    dropdown.addEventListener('mouseleave', function () {
+        hideTimeout = setTimeout(function () {
+            dropdown.classList.remove('open');
+        }, 250);
+    });
+
+    // Open/close on click/tap (mobile)
+    eventsDropdownLink.addEventListener('click', function (e) {
+        // Only open dropdown if screen is mobile or touch
+        if (window.innerWidth <= 900) {
+            e.preventDefault();
+            dropdown.classList.toggle('open');
+        } else {
+            // On desktop, go to tech.html
+            window.location.href = 'tech.html';
+        }
+    });
+
+    // Close dropdown if clicking outside (mobile)
+    document.addEventListener('click', function (e) {
+        if (window.innerWidth <= 900) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+            }
+        }
+    });
+});
+</script>
 </body>
 </html>

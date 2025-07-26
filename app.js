@@ -6,12 +6,18 @@ document.addEventListener('DOMContentLoaded', function () {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             const name = form.name.value.trim();
-            const email = form.email.value.trim();
+            // Use value from email input, which may be readonly and prefilled
+            const emailInput = form.querySelector('input[name="email"], #signupEmail');
+            const email = emailInput ? emailInput.value.trim() : '';
             const event = form.event.value;
             if (name && email && event) {
                 message.textContent = `Thank you, ${name}! You have signed up for the ${event.charAt(0).toUpperCase() + event.slice(1)} event.`;
                 message.style.color = 'green';
                 form.reset();
+                // Refill email if it's readonly/prefilled
+                if (emailInput && emailInput.hasAttribute('readonly')) {
+                    emailInput.value = email;
+                }
             } else {
                 message.textContent = 'Please fill in all fields.';
                 message.style.color = 'red';
@@ -26,7 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (dropdown) {
         dropdown.addEventListener('mouseenter', function () {
             clearTimeout(hideTimeout);
-            dropdown.classList.add('open');
+            if (!dropdown.classList.contains('open')) {
+                dropdown.classList.add('open');
+            }
         });
 
         dropdown.addEventListener('mouseleave', function () {
@@ -48,6 +56,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const animatedSections = document.querySelectorAll(
         '.hero, .events, .about, .signup, .profile, .dev-console, footer, .event-card'
     );
+    animatedSections.forEach(sec => {
+        sec.style.opacity = 0;
+        sec.style.transition = 'opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
+    });
     function revealOnScroll() {
         const trigger = window.innerHeight * 0.92;
         animatedSections.forEach(sec => {
@@ -57,4 +69,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     revealOnScroll();
     window.addEventListener('scroll', revealOnScroll);
-}); 
+});
