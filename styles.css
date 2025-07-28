@@ -344,7 +344,7 @@ footer { animation-delay: 0.7s; }
     min-width: 180px;
     background: rgb(32, 36, 56); /* matches navbar, slightly more opaque */
     backdrop-filter: blur(8px);      /* soft glass effect */
-    box-shadow: 0 4px 16px 0 rgba(22, 58, 105, 0.226); /* subtle blue shadow */
+    box-shadow: 0 4px 16px 0 rgba(22, 58, 105, 0.244); /* subtle blue shadow */
     border-radius: 0 0 1em 1em;
     opacity: 0;
     visibility: hidden;
@@ -370,7 +370,7 @@ footer { animation-delay: 0.7s; }
     transition: background 0.18s, color 0.18s;
 }
 .navbar__dropdown .dropdown-menu a:hover {
-    background: rgba(26,115,232,0.13); /* subtle blue highlight */
+    background: rgba(26, 115, 232, 0.192); /* subtle blue highlight */
     color: #fff !important;
 }
 

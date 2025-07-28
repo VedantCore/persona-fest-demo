@@ -69,4 +69,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     revealOnScroll();
     window.addEventListener('scroll', revealOnScroll);
+
+    // Example: Send registration data to MongoDB backend
+    function registerUser(username, password) {
+        fetch('/add-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ Username: username, Password: password })
+        })
+        .then(res => res.json())
+        .then(data => {
+            // Handle success or error
+            if (data.message) {
+                alert('Registration successful!');
+            } else {
+                alert('Registration failed: ' + (data.error || 'Unknown error'));
+            }
+        })
+        .catch(() => alert('Network error'));
+    }
+
+    // Example usage: Call registerUser when needed
+    // registerUser('testuser', 'testpass');
 });
