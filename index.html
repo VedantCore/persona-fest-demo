@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Persona Fest 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -33,10 +34,19 @@
     <!-- Login Modal -->        
     <div id="loginModal" style="display:flex;">
         <form id="loginForm">
-            <h2><span class="modal-icon">🔐</span>Login</h2>
-            <input type="email" id="loginEmail" placeholder="Email" required>
-            <input type="password" id="loginPassword" placeholder="Password" required>
-            <button type="submit" class="button">Login</button>
+            <h2>Welcome Back</h2>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="loginEmail" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+            </div>
+            <button type="submit" class="button">
+                <span>Login</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
             <div id="loginMsg"></div>
             <div class="modal-switch">New user?
                 <a href="#" id="showRegister">Register here</a>
@@ -46,10 +56,19 @@
     <!-- Register Modal -->
     <div id="registerModal" style="display:none;">
         <form id="registerForm">
-            <h2><span class="modal-icon">📝</span>Register</h2>
-            <input type="email" id="registerEmail" placeholder="Email" required>
-            <input type="password" id="registerPassword" placeholder="Password" required>
-            <button type="submit" class="button">Register</button>
+            <h2>Create Account</h2>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="registerEmail" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="registerPassword" placeholder="Password" required>
+            </div>
+            <button type="submit" class="button">
+                <span>Register</span>
+                <i class="fas fa-user-plus"></i>
+            </button>
             <div id="registerMsg"></div>
             <div class="modal-switch">Already have an account?
                 <a href="#" id="showLogin">Login here</a>
@@ -57,20 +76,33 @@
         </form>
     </div>
     <header class="hero">
-        <h1>Welcome to MIT-ADT University's Persona Fest 2025</h1>
-        <p>Participate in exciting events and games. Register now!</p>
-        <a href="#signup" class="button hero-btn">Register Now</a>
+        <div class="hero-content">
+            <span class="badge">MIT-ADT University</span>
+            <h1>Welcome to Persona Fest <span class="highlight">2025</span></h1>
+            <p>Join us for a futuristic celebration of technology, art, and innovation. Experience the next generation of creative talent.</p>
+            <a href="#signup" class="button hero-btn">
+                <span>Register Now</span>
+                <i class="fas fa-rocket"></i>
+            </a>
+        </div>
+        <div class="hero-graphics">
+            <!-- Hero visuals will be added with CSS -->
+        </div>
     </header>
     <section class="events">
         <h2>Featured Events</h2>
         <div class="event-list">
             <div class="event-card">
+                <div class="card-icon"><i class="fas fa-code"></i></div>
                 <h3>Hackathon</h3>
                 <p>Showcase your coding skills and win prizes!</p>
+                <a href="#signup" class="card-link">Join Event <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="event-card">
+                <div class="card-icon"><i class="fas fa-paint-brush"></i></div>
                 <h3>Design Contest</h3>
                 <p>Unleash your creativity in our design challenge.</p>
+                <a href="#signup" class="card-link">Join Event <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
 <section id="about" class="about">
@@ -330,6 +362,10 @@ registerForm.onsubmit = function(e) {
     e.preventDefault();
     const email = registerForm.registerEmail.value.trim();
     const password = registerForm.registerPassword.value;
+    
+    // Call the new registerUser function to send data to the backend
+    registerUser(email, password);
+
     if (!email || !password) {
         registerMsg.textContent = "Please fill all fields.";
         return;
