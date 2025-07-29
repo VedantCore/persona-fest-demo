@@ -3,57 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events | MIT-ADT Persona Fest 2025</title>
+    <title>Events | Persona Fest 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="navbar">
+    <!-- Apple-style liquid glass background -->
+    <div class="liquid-bg">
+        <div class="liquid-shape liquid-shape-1"></div>
+        <div class="liquid-shape liquid-shape-2"></div>
+    </div>
+    
+    <!-- Apple-style navbar -->
+    <nav class="navbar"> 
         <div class="navbar__container">
-            <a href="index.html" id="navbar__logo">
-                <img src="images/MIT_ADT_Logo.png" alt="MIT-ADT Logo" style="height:2.1rem;vertical-align:middle;margin-right:0.7rem;display:inline-block;">
-                MIT Art, Design & Technology University
-            </a>
+            <a href="index.html" id="navbar__logo">Persona Fest</a>
             <ul class="navbar__menu">
                 <li class="navbar__item"><a href="index.html" class="navbar__links">Home</a></li>
-                <li class="navbar__item navbar__dropdown">
-                    <a href="tech.html" class="navbar__links" id="eventsDropdownLink">Events &#9662;</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="tech.html#hackathon" class="navbar__links">Hackathon</a></li>
-                        <li><a href="tech.html#robotics" class="navbar__links">Robotics Challenge</a></li>
-                        <!-- Add more events as needed -->
-                    </ul>
-                </li>
+                <li class="navbar__item"><a href="tech.html" class="navbar__links">Events</a></li>
                 <li class="navbar__item"><a href="index.html#about" class="navbar__links">About</a></li>
-                <li class="navbar__btn"><a href="index.html#signup" class="button">Sign Up</a></li>
+                <li class="navbar__item"><button id="loginBtn" class="navbar__links" style="background:none; border:none; cursor:pointer;">Log In</button></li>
             </ul>
         </div>
     </nav>
-    <main class="tech-events">
-        <h1>MIT-ADT Persona Fest 2025</h1>
-        <h2>Events</h2>
-        <section id="hackathon" class="event-detail">
-            <h3>Hackathon 2025</h3>
-            <p>Form a team and solve real-world problems in 24 hours. Open to all students.</p>
-            <ul>
-                <li>Date: August 10, 2025</li>
-                <li>Venue: Main Auditorium</li>
-                <li>Team Size: 2-4</li>
-            </ul>
-            <a href="index.html#signup" class="button">Sign Up</a>
-        </section>
-        <section id="robotics" class="event-detail">
-            <h3>Robotics Challenge</h3>
-            <p>Design, build, and compete with your robots in various challenges.</p>
-            <ul>
-                <li>Date: August 12, 2025</li>
-                <li>Venue: Robotics Lab</li>
-                <li>Team Size: 1-3</li>
-            </ul>
-            <a href="index.html#signup" class="button">Sign Up</a>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 MIT Art, Design & Technology University. All rights reserved.</p>
+    
+    <!-- Events hero -->
+    <header class="hero">
+        <h1>Explore Events</h1>
+        <p>Discover the exciting lineup of events at Persona Fest 2025</p>
+    </header>
+    
+    <!-- Event details -->
+    <section class="section-wrapper">
+        <div class="event-list">
+            <div class="event-card" id="hackathon">
+                <div class="card-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Hackathon</h3>
+                <p>Form a team and solve real-world problems in 24 hours. Open to all students with a passion for coding and innovation.</p>
+                <ul style="text-align: left; margin-bottom: 20px;">
+                    <li><strong>Date:</strong> August 10, 2025</li>
+                    <li><strong>Venue:</strong> Main Auditorium</li>
+                    <li><strong>Team Size:</strong> 2-4 members</li>
+                </ul>
+                <a href="index.html#signup" class="card-link">Register now <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <div class="event-card" id="robotics">
+                <div class="card-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Robotics Challenge</h3>
+                <p>Design, build, and compete with your robots in a series of challenging tasks that test engineering skills.</p>
+                <ul style="text-align: left; margin-bottom: 20px;">
+                    <li><strong>Date:</strong> August 12, 2025</li>
+                    <li><strong>Venue:</strong> Robotics Lab</li>
+                    <li><strong>Team Size:</strong> 1-3 members</li>
+                </ul>
+                <a href="index.html#signup" class="card-link">Register now <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <div class="event-card" id="design">
+                <div class="card-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3>Design Contest</h3>
+                <p>Showcase your creativity and design thinking in our annual design competition with multiple categories.</p>
+                <ul style="text-align: left; margin-bottom: 20px;">
+                    <li><strong>Date:</strong> August 11, 2025</li>
+                    <li><strong>Venue:</strong> Design Studio</li>
+                    <li><strong>Participation:</strong> Individual</li>
+                </ul>
+                <a href="index.html#signup" class="card-link">Register now <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Apple-style footer -->
+    <footer style="text-align: center; padding: 40px 20px; color: var(--apple-mid-gray); font-size: 12px;">
+        <p>Copyright © 2025 MIT Art, Design & Technology University. All rights reserved.</p>
     </footer>
+    
+    <!-- Apple-style liquid cursor -->
+    <div class="liquid-cursor"></div>
+    <div class="liquid-cursor-follower"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="liquid-glass.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
