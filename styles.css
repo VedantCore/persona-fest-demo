@@ -429,6 +429,29 @@ p {
     box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
 }
 
+/* Password toggle button styling */
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--apple-mid-gray);
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.password-toggle:hover {
+    color: var(--apple-blue);
+}
+
+.input-group input[type="password"],
+.input-group input[type="text"] {
+    padding-right: 44px;
+}
+
 .modal-button {
     width: 100%;
     padding: 16px;
@@ -473,6 +496,242 @@ p {
 
 .modal-switch a:hover {
     text-decoration: underline;
+}
+
+/* Apple-style custom select dropdowns */
+.custom-select-wrapper {
+    position: relative;
+    user-select: none;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.custom-select {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-select__trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 16px 16px 44px;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--apple-black);
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--apple-light-gray);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.custom-select__trigger:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--apple-mid-gray);
+}
+
+.custom-select__icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--apple-mid-gray);
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.custom-select__arrow {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    transition: all 0.3s;
+}
+
+.custom-select__arrow::before, .custom-select__arrow::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 0.15rem;
+    height: 0.7rem;
+    background-color: var(--apple-mid-gray);
+    transition: all 0.3s;
+}
+
+.custom-select__arrow::before {
+    left: 0;
+    transform: rotate(45deg);
+}
+
+.custom-select__arrow::after {
+    right: 0;
+    transform: rotate(-45deg);
+}
+
+.custom-select.open .custom-select__arrow::before {
+    transform: rotate(-45deg);
+}
+
+.custom-select.open .custom-select__arrow::after {
+    transform: rotate(45deg);
+}
+
+.custom-options {
+    position: absolute;
+    display: block;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    max-height: 0;
+    width: 100%;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.custom-select.open .custom-options {
+    max-height: 300px; /* Increased height */
+    opacity: 1;
+    overflow-y: auto;
+    pointer-events: all;
+    z-index: 1001; /* Ensure this is above other elements */
+}
+
+.option-group {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.option-group:last-child {
+    border-bottom: 0;
+}
+
+.option-group-label {
+    padding: 6px 22px;
+    font-weight: 600;
+    color: var(--apple-blue);
+    font-size: 14px;
+}
+
+.custom-option {
+    position: relative;
+    display: block;
+    padding: 12px 22px;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--apple-dark-gray);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.custom-option:hover {
+    background: rgba(0, 102, 204, 0.06);
+}
+
+.custom-option.selected {
+    color: var(--apple-blue);
+    font-weight: 500;
+}
+
+/* Enhanced form section styling */
+.form-section {
+    margin-bottom: 2.5rem;
+    padding: 1.8rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.form-section:hover {
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.form-section h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 22px;
+    color: var(--apple-black);
+    font-weight: 600;
+}
+
+/* Enhanced event options styling */
+.event-options {
+    margin-top: 1.2rem;
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+    display: none;
+    position: relative;
+}
+
+/* Special styles for the PC games dropdown */
+#pcGamesEvents {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#pcGamesEvents .custom-select__trigger {
+    border-color: var(--apple-blue);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+#pcGamesEvents .custom-select__icon {
+    color: var(--apple-blue);
+}
+
+.highlight-event-option {
+    animation: pulse-highlight 1.2s ease;
+}
+
+@keyframes pulse-highlight {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.2); }
+    50% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(0, 102, 204, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 102, 204, 0); }
+}
+
+.active-category {
+    color: var(--apple-blue) !important;
+    font-weight: 600;
+    background-color: rgba(0, 102, 204, 0.05);
+}
+
+.selection-active {
+    color: var(--apple-blue);
+    font-weight: 600;
+    animation: fade-in 0.5s ease;
+    background: rgba(0, 102, 204, 0.05);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border-left: 3px solid var(--apple-blue);
+}
+
+/* Ensure PC games dropdown options have good spacing */
+#pcGamesEvents .custom-options {
+    padding: 8px 0;
+}
+
+#pcGamesEvents .custom-option {
+    padding: 16px 22px;
+    font-weight: 500;
+}
+
+#pcGamesEvents .custom-option:hover {
+    background: rgba(0, 102, 204, 0.1);
+    color: var(--apple-blue);
 }
 
 /* Liquid Glass scrollbar */

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Persona Fest 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for login page */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 48px;
+            width: 100%;
+            max-width: 480px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .login-header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: var(--apple-black);
+        }
+        
+        .login-header p {
+            color: var(--apple-mid-gray);
+            font-size: 16px;
+        }
+        
+        .form-tabs {
+            display: flex;
+            margin-bottom: 32px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            padding: 4px;
+        }
+        
+        .form-tab {
+            flex: 1;
+            padding: 12px 16px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: var(--apple-mid-gray);
+        }
+        
+        .form-tab.active {
+            background: var(--apple-blue);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+        }
+        
+        .form-content {
+            display: none;
+        }
+        
+        .form-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .remember-me input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        
+        .forgot-password {
+            color: var(--apple-blue);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .forgot-password:hover {
+            opacity: 0.7;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            color: var(--apple-mid-gray);
+            font-size: 14px;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .divider span {
+            padding: 0 16px;
+        }
+        
+        .social-login {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border: 1px solid var(--apple-light-gray);
+            border-radius: 8px;
+            background: white;
+            color: var(--apple-dark-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            border-color: var(--apple-blue);
+            transform: translateY(-2px);
+        }
+        
+        .back-to-home {
+            text-align: center;
+            margin-top: 24px;
+        }
+        
+        .back-to-home a {
+            color: var(--apple-blue);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .status-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .status-message.success {
+            background: rgba(52, 199, 89, 0.1);
+            color: #34c759;
+            border: 1px solid rgba(52, 199, 89, 0.2);
+        }
+        
+        .status-message.error {
+            background: rgba(255, 59, 48, 0.1);
+            color: #ff3b30;
+            border: 1px solid rgba(255, 59, 48, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Apple-style liquid glass background -->
+    <div class="liquid-bg">
+        <div class="liquid-shape liquid-shape-1"></div>
+        <div class="liquid-shape liquid-shape-2"></div>
+    </div>
+    
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Welcome to Persona Fest</h1>
+                <p>Sign in to your account or create a new one</p>
+            </div>
+            
+            <!-- Form Tabs -->
+            <div class="form-tabs">
+                <div class="form-tab active" data-tab="login">Sign In</div>
+                <div class="form-tab" data-tab="register">Sign Up</div>
+            </div>
+            
+            <!-- Status Message -->
+            <div id="statusMessage" class="status-message"></div>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="form-content active">
+                <form id="signInForm">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" name="email" placeholder="Email Address" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="remember-forgot">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe" name="remember">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="modal-button">
+                        <span>Sign In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="registerForm" class="form-content">
+                <form id="signUpForm">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="registerName" name="name" placeholder="Full Name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="registerEmail" name="email" placeholder="Email Address" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="registerPassword" name="password" placeholder="Create Password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-check-circle"></i>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="remember-forgot">
+                        <label class="remember-me">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                            <span>I agree to the <a href="#" style="color: var(--apple-blue);">Terms & Conditions</a></span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="modal-button">
+                        <span>Create Account</span>
+                        <i class="fas fa-user-plus"></i>
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Social Login Options -->
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+            
+            <div class="social-login">
+                <a href="#" class="social-btn" onclick="socialLogin('google')">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                </a>
+                <a href="#" class="social-btn" onclick="socialLogin('microsoft')">
+                    <i class="fab fa-microsoft"></i>
+                    <span>Microsoft</span>
+                </a>
+            </div>
+            
+            <div class="back-to-home">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Apple-style liquid cursor -->
+    <div class="liquid-cursor"></div>
+    <div class="liquid-cursor-follower"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="liquid-glass.js"></script>
+    <script>
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.form-tab');
+            const forms = document.querySelectorAll('.form-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.dataset.tab;
+                    
+                    // Update tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update forms
+                    forms.forEach(f => f.classList.remove('active'));
+                    document.getElementById(targetTab + 'Form').classList.add('active');
+                });
+            });
+            
+            // Sign In Form Handler
+            document.getElementById('signInForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                const remember = document.getElementById('rememberMe').checked;
+                
+                try {
+                    const response = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password, remember })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        showMessage('Login successful! Redirecting...', 'success');
+                        
+                        // Store user session
+                        localStorage.setItem('userToken', data.token);
+                        localStorage.setItem('userEmail', email);
+                        
+                        if (remember) {
+                            localStorage.setItem('rememberUser', 'true');
+                        }
+                        
+                        // Redirect to dashboard or events page
+                        setTimeout(() => {
+                            window.location.href = 'events.html';
+                        }, 1500);
+                        
+                    } else {
+                        showMessage(data.message || 'Invalid email or password', 'error');
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    showMessage('Network error. Please try again.', 'error');
+                    
+                    // Fallback to localStorage for demo
+                    loginWithLocalStorage(email, password);
+                }
+            });
+            
+            // Sign Up Form Handler
+            document.getElementById('signUpForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                // Validation
+                if (password !== confirmPassword) {
+                    showMessage('Passwords do not match', 'error');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showMessage('Password must be at least 6 characters', 'error');
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/api/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name, email, password })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        showMessage('Account created successfully! Please sign in.', 'success');
+                        
+                        // Switch to login tab
+                        setTimeout(() => {
+                            document.querySelector('[data-tab="login"]').click();
+                            document.getElementById('loginEmail').value = email;
+                        }, 1500);
+                        
+                    } else {
+                        showMessage(data.message || 'Registration failed', 'error');
+                    }
+                } catch (error) {
+                    console.error('Registration error:', error);
+                    showMessage('Network error. Please try again.', 'error');
+                    
+                    // Fallback to localStorage for demo
+                    registerWithLocalStorage(name, email, password);
+                }
+            });
+            
+            // Check if user is already logged in
+            checkExistingSession();
+        });
+        
+        // Helper Functions
+        function showMessage(message, type) {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = `status-message ${type}`;
+            statusEl.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = input.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+        
+        function socialLogin(provider) {
+            showMessage(`${provider} login coming soon!`, 'error');
+        }
+        
+        function checkExistingSession() {
+            const token = localStorage.getItem('userToken');
+            const email = localStorage.getItem('userEmail');
+            
+            if (token && email) {
+                showMessage('You are already logged in. Redirecting...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'events.html';
+                }, 1500);
+            }
+        }
+        
+        // Fallback functions for local storage (demo mode)
+        function loginWithLocalStorage(email, password) {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                showMessage('Login successful! (Demo mode)', 'success');
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                setTimeout(() => {
+                    window.location.href = 'events.html';
+                }, 1500);
+            } else {
+                showMessage('Invalid email or password (Demo mode)', 'error');
+            }
+        }
+        
+        function registerWithLocalStorage(name, email, password) {
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            if (users.find(u => u.email === email)) {
+                showMessage('Email already registered (Demo mode)', 'error');
+                return;
+            }
+            
+            users.push({ name, email, password, createdAt: new Date().toISOString() });
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            showMessage('Account created successfully! (Demo mode)', 'success');
+            
+            setTimeout(() => {
+                document.querySelector('[data-tab="login"]').click();
+                document.getElementById('loginEmail').value = email;
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
