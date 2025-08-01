@@ -1,0 +1,5 @@
+# Environment variables
+.env.local
+
+# Dependencies (for Node.js)
+node_modules
