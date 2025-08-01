@@ -1,100 +1,74 @@
-const mongoose = require('mongoose');
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
 
-// Load environment variables from a .env file
+// This line loads your MONGO_URI from the .env.local file
 require('dotenv').config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 // --- Middleware ---
-// Enable Cross-Origin Resource Sharing (CORS)
 app.use(cors());
-// Parse incoming JSON requests
 app.use(express.json());
 
-// --- MongoDB Connection ---
+// --- Database Connection ---
 const connectDB = async () => {
   try {
-    // Retrieve the MongoDB connection string from environment variables
+    // IMPORTANT: Make sure your MONGO_URI in .env.local includes a database name
+    // Example: mongodb+srv://user:pass@cluster.mongodb.net/MyOwnDatabase?retryWrites=true
     const dbURI = process.env.MONGO_URI;
 
     if (!dbURI) {
-      console.error('❌ MONGO_URI not found in environment variables.');
-      process.exit(1); // Exit the process with an error code
+      console.error('❌ MONGO_URI not found. Make sure to set it in your .env.local file.');
+      process.exit(1);
     }
 
-    // Connect to MongoDB using the URI
     await mongoose.connect(dbURI);
+    console.log('✅ Successfully connected to MongoDB!');
 
-    console.log('✅ Successfully connected to MongoDB Atlas!');
   } catch (error) {
     console.error('❌ Error connecting to MongoDB:', error.message);
-    // Exit the process with an error code if the connection fails
     process.exit(1);
   }
 };
 
-// --- Mongoose Schema and Model ---
-const FormDataSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true, // Ensures no two users can have the same email
-  },
-  message: {
-    type: String,
-    required: true,
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now, // Automatically set the current date and time
-  },
+// --- Mongoose Schema & Model for Your Form ---
+// This defines the structure for the data you are actually submitting
+const SubmissionSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  message: { type: String, required: true },
+  submittedAt: { type: Date, default: Date.now },
 });
 
-const FormData = mongoose.model('FormData', FormDataSchema);
+// We explicitly name the model 'Submission' and the collection 'submissions'
+const Submission = mongoose.model('Submission', SubmissionSchema, 'submissions');
 
-// --- API Routes ---
-// POST route to handle form submissions
+
+// --- API Route to Handle Form Submissions ---
 app.post('/submit', async (req, res) => {
   try {
     const { name, email, message } = req.body;
 
-    // Create a new document using the FormData model
-    const newSubmission = new FormData({
-      name,
-      email,
-      message,
-    });
+    // Create a new document with the data from the form
+    const newSubmission = new Submission({ name, email, message });
 
-    // Save the new document to the database
+    // Save it to the 'submissions' collection
     await newSubmission.save();
 
-    console.log('📥 Form data saved:', newSubmission);
-    res.status(201).json({ message: 'Form data submitted successfully!' });
+    console.log('✅ Form data saved to the "submissions" collection:', newSubmission);
+    res.status(201).json({ message: 'Form data received and saved!' });
   } catch (error) {
     console.error('🔥 Error saving form data:', error.message);
-    res.status(500).json({ error: 'Failed to submit form data.' });
+    res.status(500).json({ error: 'Failed to save form data.' });
   }
 });
 
-// GET route to retrieve all form submissions
-app.get('/submissions', async (req, res) => {
-  try {
-    const submissions = await FormData.find();
-    res.status(200).json(submissions);
-  } catch (error) {
-    console.error('🔥 Error retrieving submissions:', error.message);
-    res.status(500).json({ error: 'Failed to retrieve submissions.' });
-  }
+// --- Start the Server ---
+// First, connect to the database. Then, start the server.
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  });
 });
-
-
-// --- Export necessary modules ---
-// Export the connectDB function to be called from your main server file
-// Export the app to be used in your server's entry point
-module.exports = { app, connectDB };
